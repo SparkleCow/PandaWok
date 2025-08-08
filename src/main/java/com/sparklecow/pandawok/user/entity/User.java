@@ -33,6 +33,7 @@ public class User implements UserDetails, Principal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //Auditing
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
