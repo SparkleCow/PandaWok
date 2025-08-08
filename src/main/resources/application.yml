@@ -2,5 +2,11 @@ spring:
   application:
     name: pandawok
 
+  profiles:
+    active:
+      - dev
+
 server:
   port: 8080
+
+
