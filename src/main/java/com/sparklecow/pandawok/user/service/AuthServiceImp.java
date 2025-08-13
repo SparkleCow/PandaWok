@@ -1,7 +1,6 @@
 package com.sparklecow.pandawok.user.service;
 
 import com.sparklecow.pandawok.config.jwt.JwtUtils;
-import com.sparklecow.pandawok.user.entity.Role;
 import com.sparklecow.pandawok.user.entity.User;
 import com.sparklecow.pandawok.user.mapper.UserMapper;
 import com.sparklecow.pandawok.user.model.*;
@@ -43,8 +42,11 @@ public class AuthServiceImp implements AuthService{
             throw new RuntimeException("Username already taken");
         }
 
-        User user = userRepository.save(userMapper.toEntity(userRequestDto));
+        if (userRepository.existsByEmail(userRequestDto.email())) {
+            throw new RuntimeException("Email already exist");
+        }
 
+        User user = userRepository.save(userMapper.toEntity(userRequestDto));
         return userMapper.toDto(user);
     }
 }

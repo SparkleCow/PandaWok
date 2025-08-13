@@ -18,3 +18,5 @@ volumes:
 
 networks:
   pandanet:
+    driver: bridge
+
