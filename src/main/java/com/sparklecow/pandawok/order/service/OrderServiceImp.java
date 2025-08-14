@@ -46,9 +46,11 @@ public class OrderServiceImp implements OrderService{
     }
 
     @Override
-    public Page<OrderResponseDto> listOrdersByClient(User user, Pageable pageable) {
-        log.info("Listing orders for client: {}", user.getUsername());
-        return orderRepository.findByClient(user, pageable)
+    public Page<OrderResponseDto> listOrdersByClient(Long clientId, Pageable pageable) {
+        User client = userRepository.findById(clientId).orElseThrow(() -> new RuntimeException(""));
+
+        log.info("Listing orders for client: {}", client.getUsername());
+        return orderRepository.findByClient(client, pageable)
                 .map(OrderMapper::toResponseDto);
     }
 
@@ -60,9 +62,11 @@ public class OrderServiceImp implements OrderService{
     }
 
     @Override
-    public Page<OrderResponseDto> listOrdersByDelivery(User user, Pageable pageable) {
-        log.info("Listing orders for delivery user: {}", user.getUsername());
-        return orderRepository.findByDelivery(user, pageable)
+    public Page<OrderResponseDto> listOrdersByDelivery(Long deliveryId, Pageable pageable) {
+        User delivery = userRepository.findById(deliveryId).orElseThrow(() -> new RuntimeException(""));
+
+        log.info("Listing orders for delivery user: {}", delivery.getUsername());
+        return orderRepository.findByDelivery(delivery, pageable)
                 .map(OrderMapper::toResponseDto);
     }
 

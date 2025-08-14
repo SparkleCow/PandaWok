@@ -12,10 +12,10 @@ public interface OrderService {
 
     Page<OrderResponseDto> listAllOrders(Pageable pageable);
 
-    Page<OrderResponseDto> listOrdersByClient(User user, Pageable pageable);
+    Page<OrderResponseDto> listOrdersByClient(Long clientId, Pageable pageable);
     Page<OrderResponseDto> listOrdersByClientUsername(String username, Pageable pageable);
 
-    Page<OrderResponseDto> listOrdersByDelivery(User user, Pageable pageable);
+    Page<OrderResponseDto> listOrdersByDelivery(Long deliveryId, Pageable pageable);
 
     Page<OrderResponseDto> listCompletedOrders(Pageable pageable);
     Page<OrderResponseDto> listCanceledOrders(Pageable pageable);

@@ -5,6 +5,7 @@ import com.sparklecow.pandawok.user.model.LoginResponseDto;
 import com.sparklecow.pandawok.user.model.UserRequestDto;
 import com.sparklecow.pandawok.user.model.UserResponseDto;
 import com.sparklecow.pandawok.user.service.AuthService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
+@Tag(name = "Authentication", description = "Endpoints for managing authentication")
 public class AuthController {
 
     private final AuthService authService;
