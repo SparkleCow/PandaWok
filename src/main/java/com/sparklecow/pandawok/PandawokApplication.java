@@ -11,6 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.Arrays;
+import java.util.List;
+
 @SpringBootApplication
 @EnableJpaAuditing
 @RequiredArgsConstructor
@@ -26,16 +29,16 @@ public class PandawokApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(RoleRepository roleRepository) {
 		return args -> {
-			for (RoleEnum roleEnum : RoleEnum.values()) {
-				roleRepository.findByRoleEnum(roleEnum)
-						.ifPresentOrElse(
-								res -> {},
-								() -> {
-									Role role = new Role();
-									role.setRoleEnum(roleEnum);
-									roleRepository.save(role);
-								}
-						);
+			if (roleRepository.count() == 0) {
+				List<Role> roles = Arrays.stream(RoleEnum.values())
+						.map(roleEnum -> {
+							Role role = new Role();
+							role.setRoleEnum(roleEnum);
+							return role;
+						})
+						.toList();
+				roleRepository.saveAll(roles);
+				log.info("Roles created");
 			}
 		};
 	}

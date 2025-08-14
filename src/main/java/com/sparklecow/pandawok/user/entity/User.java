@@ -35,10 +35,11 @@ public class User implements UserDetails, Principal {
 
     //Auditing
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
+    @Column(insertable = false, nullable = true)
     private LocalDateTime updatedAt;
 
     @Column(unique = true)
